@@ -19,9 +19,9 @@ app.get("/api/post", (req, res) => {
   res.send("This is the TEST ONE");
 });
 
-app.get("/api/post", (req, res) => {
-  //   const body = req.body;
-  res.send("hey POST GET REQuest");
+app.post("/api/post", (req, res) => {
+    const body = req.body;
+  res.send({body});
 });
 
 app.post("/file", async (req, res) => {
