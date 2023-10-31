@@ -15,16 +15,7 @@ app.get("/", (req, res) => {
   res.send("This is the / route");
 });
 
-app.get("/api/post", (req, res) => {
-  res.send("This is the TEST ONE");
-});
-
-app.post("/api/post", (req, res) => {
-    const body = req.body;
-  res.send({body});
-});
-
-app.post("/file", async (req, res) => {
+app.post("/api/file", async (req, res) => {
   const { title, fileName } = req.body;
   const doc = new PDFDocument();
 
