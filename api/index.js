@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
   res.send("This is the / route");
 });
 
-app.post("/post", (req, res) => {
+app.get("/post", (req, res) => {
   const body = req.body;
   res.send({ body });
 });
