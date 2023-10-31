@@ -15,6 +15,10 @@ app.get("/", (req, res) => {
   res.send("This is the / route");
 });
 
+app.post("/post", (req, res) => {
+  const body = req.body;
+  res.send({ body });
+});
 
 app.post("/file", async (req, res) => {
   const { title, fileName } = req.body;
@@ -29,7 +33,7 @@ app.post("/file", async (req, res) => {
   doc.end();
 
   writeStream.on("finish", function () {
-    res.sendFile(file)
+    res.sendFile(file);
   });
 });
 
