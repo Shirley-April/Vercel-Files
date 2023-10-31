@@ -15,8 +15,12 @@ app.get("/", (req, res) => {
   res.send("This is the / route");
 });
 
+app.get("/api/post", (req, res) => {
+  res.send("This is the TEST ONE");
+});
+
 app.get("/post", (req, res) => {
-//   const body = req.body;
+  //   const body = req.body;
   res.send("hey POST GET REQuest");
 });
 
