@@ -19,7 +19,7 @@ app.get("/api/post", (req, res) => {
   res.send("This is the TEST ONE");
 });
 
-app.get("/post", (req, res) => {
+app.get("/api/post", (req, res) => {
   //   const body = req.body;
   res.send("hey POST GET REQuest");
 });
