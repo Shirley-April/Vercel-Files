@@ -4,6 +4,12 @@ const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
 
+const { createFile } = require("./create-file");
+const { uploadFile } = require("./dropbox/uploadFile");
+const { downloadFile } = require("./dropbox/downloadFile");
+const { deleteFile } = require("./dropbox/deleteFile");
+
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -17,19 +23,26 @@ app.get("/", (req, res) => {
 
 app.post("/api/file", async (req, res) => {
   const { title, fileName } = req.body;
-  const doc = new PDFDocument();
 
-  let file = path.join(process.cwd(), "tmp", `${fileName}.pdf`);
+  const file = await createFile(title, fileName);
 
-  let writeStream = fs.createWriteStream(file);
+  // console.log("FILE", file);
 
-  doc.pipe(writeStream);
-  doc.text(title);
-  doc.end();
+  // res.sendFile(file)
 
-  writeStream.on("finish", function () {
-    res.sendFile(file);
-  });
+  const upload_file = await uploadFile(file);
+  const download_file_link = await downloadFile();
+
+//   console.log("UPLOAD", upload_file);
+
+  if (upload_file.status === 200) {
+    res.status(200).send({
+      response: download_file_link,
+    });
+  }
+  deleteFile()
+
+//   res.sendFile(file);
 });
 
 const PORT = 3000;
