@@ -3,6 +3,7 @@ require("dotenv").config();
 const { Dropbox } = require("dropbox");
 
 const fs = require("fs");
+const path = require("path")
 
 const uploadFile = (filePath) => {
   return new Promise((resolve, reject) => {
@@ -12,7 +13,10 @@ const uploadFile = (filePath) => {
       refreshToken: process.env.REFRESH_TOKEN,
     });
 
-    fs.readFile(filePath, (err, contents) => {
+    const relativePath = path.join(__dirname, "../../tmp/vercel.pdf");
+
+
+    fs.readFile(relativePath, (err, contents) => {
       if (err) {
         reject({ message: "Error reading file", error: err });
       } else {
