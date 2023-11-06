@@ -9,7 +9,6 @@ const { uploadFile } = require("./dropbox/uploadFile");
 const { downloadFile } = require("./dropbox/downloadFile");
 const { deleteFile } = require("./dropbox/deleteFile");
 
-
 const app = express();
 app.use(bodyParser.json());
 
@@ -33,16 +32,21 @@ app.post("/api/file", async (req, res) => {
   const upload_file = await uploadFile(file);
   const download_file_link = await downloadFile();
 
-//   console.log("UPLOAD", upload_file);
+  //   console.log("UPLOAD", upload_file);
+
+  if (upload_file.status !== 200) {
+    console.log(upload_file);
+    res.send({ error: "An error occured uploading the file" });
+  }
 
   if (upload_file.status === 200) {
     res.status(200).send({
       response: download_file_link,
     });
   }
-  deleteFile()
+  deleteFile();
 
-//   res.sendFile(file);
+  //   res.sendFile(file);
 });
 
 const PORT = 3000;
